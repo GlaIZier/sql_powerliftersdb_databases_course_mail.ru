@@ -297,6 +297,12 @@ join age_class
 using (age_class_id)
 where powerlifter.powerlifter_id = 1;
 
+-- Set full table scan off. Usefull to understand why postgres doesb't use indeces
+SET enable_seqscan = off;
+-- Cost of random IO
+show random_page_cost;
+SET random_page_cost = 1.1 
+
 select powerlifter.powerlifter_id, powerlifter.last_name, powerlifter.first_name, competition.competition_id, competition_result.participants_number
 from powerlifter
 join competition_result
@@ -304,12 +310,3 @@ using (powerlifter_id)
 join competition
 using (competition_id)
 where powerlifter.powerlifter_id = 1;
-
--- Set full table scan off. Usefull to understand why postgres doesb't use indeces
-SET enable_seqscan = off;
-
-select competition.competition_id, competition_result.participants_number
-from competition_result
-join competition
-using (competition_id)
-where competition_result.competition_result_id = 1;
