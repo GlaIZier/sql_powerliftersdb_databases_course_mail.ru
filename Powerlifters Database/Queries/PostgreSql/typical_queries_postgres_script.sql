@@ -305,6 +305,9 @@ join competition
 using (competition_id)
 where powerlifter.powerlifter_id = 1;
 
+-- Set full table scan off. Usefull to understand why postgres doesb't use indeces
+SET enable_seqscan = off;
+
 select competition.competition_id, competition_result.participants_number
 from competition_result
 join competition
