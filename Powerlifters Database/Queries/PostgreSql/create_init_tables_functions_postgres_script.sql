@@ -206,7 +206,6 @@ $$ language plpgsql;
 -- -----------------------------------------------------
 -- Table powerlifters.exercise_result
 -- -----------------------------------------------------
--- TODO recreate this procedure!
 create or replace function fill_exercise_result_table ()
    returns void as $$
    declare competition_result_id int := 0;
@@ -234,46 +233,3 @@ create or replace function fill_exercise_result_table ()
       end loop;
    end;
 $$ language plpgsql;
-
-   -- declare competition_result_number int := 0;
-   -- declare competition_result_min int := 0;
-      -- select count(competition_result_id) 
-      -- into competition_result_number
-      -- from powerlifters.competition_result;
-
-      -- select min(competition_result_id)
-      -- into competition_result_min
-      -- from powerlifters.competition_result;
-
--- Old version
--- create or replace function fill_exercise_result_table (
---     in random_start_fk int,
---     in random_end_fk int,
---     in exercise_result_number int
---    )
---    returns void as $$
---    declare result_kg int := 0;
---    declare random_competition_result int := 0;
---    declare exercise int := 0;
---    declare exercise_result_index int := 0;
---    begin
---       for exercise_result_index in 0..exercise_result_number - 1
---       loop
---         random_competition_result := floor(random_start_fk + (random_end_fk - random_start_fk + 1) * random());
---         for exercise in 1..3
---         loop
---           if (exercise = 1) then
---             result_kg := floor(100 + (350 - 100 + 1) * random());
---           elsif (exercise = 2) then
---             result_kg := floor(50 + (300 - 50 + 1) * random());
---           else 
---             result_kg := floor(150 + (400 - 150 + 1) * random());
---           end if;  
---           insert into powerlifters.exercise_result
---             (result_kg, competition_result_id, exercise_id)
---             values
---             (result_kg, random_competition_result, exercise);
---         end loop;
---       end loop;
---    end;
--- $$ language plpgsql;
